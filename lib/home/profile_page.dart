@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moviees_app/session_manager.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -6,6 +8,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var username = SessionManager.getUser().then((value) => value['username']);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
@@ -25,7 +28,7 @@ class ProfilePage extends StatelessWidget {
                Padding(padding: EdgeInsets.all(20.0),),
                TextField(decoration: InputDecoration(
                 
-                hintText: 'nama', 
+                hintText: 'username', 
                 hintStyle: TextStyle(color: Colors.black),
                 suffixIcon: Icon( 
                   Icons.edit,

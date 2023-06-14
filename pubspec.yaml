@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.4
   carousel_slider: ^4.2.1
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,7 @@ flutter:
   # To add assets to your apiplication, add an assets section, like this:
   assets:
     - assets/
+    - assets/
     - assets/icons/icon_splash.png
     - assets/icons/icon_facebook.png
     - assets/icons/icon_genre.png
@@ -78,7 +80,17 @@ flutter:
     - assets/img/rumble.jpg
     - assets/img/tokyo_drift.jpeg
     - assets/img/transformer.jpeg
-
+    - assets/img/Aladin.png
+    - assets/img/Mario.png
+    - assets/img/emily.png
+    - assets/img/Horor.png
+    - assets/img/It.png
+    - assets/img/Jojo.png
+    - assets/img/Parasite.png
+    - assets/img/Paw-patrol.png
+    - assets/img/Spider-man.png
+    - assets/img/Squid-game.png
+    - assets/img/Witcher.png
 
     
 

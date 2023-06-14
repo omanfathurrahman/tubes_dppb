@@ -1,11 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:moviees_app/theme.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:moviees_app/session_manager.dart';
+
+Future<String?> cariUsername(String email) async {
+  var url = Uri.parse(
+      'https://omanfathurrahmannur.pythonanywhere.com/users'); // Ganti dengan URL endpoint yang sesuai
+
+  var response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    var tes = jsonDecode(response.body);
+    for (var i in tes) {
+      if (i['email'] == email) {
+        return i['username'];
+      }
+    }
+  }
+  return null;
+}
+
+Future<bool> login(String email, String password) async {
+  var url = Uri.parse(
+      'https://omanfathurrahmannur.pythonanywhere.com/users'); // Ganti dengan URL endpoint yang sesuai
+
+  var response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    var tes = jsonDecode(response.body);
+    for (var i in tes) {
+      if (i['email'] == email && i['password'] == password) {
+        print('Login Berhasil');
+        return true;
+      }
+    }
+    return false; // Mengembalikan response jika permintaan berhasil
+  } else {
+    throw Exception(
+        'Request failed with status: ${response.statusCode}.'); // Melempar Exception jika permintaan tidak berhasil
+  }
+}
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     Widget header() {
       return Center(
         child: Text(
@@ -26,6 +70,7 @@ class LoginPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextFormField(
+          controller: emailController,
           decoration: InputDecoration(
             hintText: 'Email',
             hintStyle: primaryTextStyle,
@@ -49,6 +94,7 @@ class LoginPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: TextFormField(
+          controller: passwordController,
           decoration: InputDecoration(
             hintText: 'password',
             hintStyle: primaryTextStyle,
@@ -72,75 +118,36 @@ class LoginPage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/home', (route) => false);
+            String email = emailController.text;
+            String password = passwordController.text;
+            String username = '';
+            cariUsername(email).then((value){
+              username = value!;
+            });
+            SessionManager.saveUser(username, email);
+
+            login(email, password).then(
+              (value) {
+                if (value) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/home',
+                    (route) => false,
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Email atau Password salah'),
+                    ),
+                  );
+                }
+              },
+            );
           },
           child: Text(
             'Login',
             style: primaryTextStyleButton.copyWith(
                 fontSize: 20, fontWeight: FontWeight.w400),
-          ),
-        ),
-      );
-    }
-
-    Widget buttonGoogle() {
-      return Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 38),
-        padding: const EdgeInsets.symmetric(horizontal: 17),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: TextButton(
-          onPressed: () {},
-          child: Row(
-            children: [
-              Image.asset(
-                'assets/icons/icon_google.png',
-                width: 25,
-              ),
-              const SizedBox(
-                width: 28,
-              ),
-              Text(
-                'Masuk Dengan Google',
-                style: primaryTextStyle.copyWith(
-                    fontSize: 16, fontWeight: FontWeight.w600),
-              )
-            ],
-          ),
-        ),
-      );
-    }
-
-    Widget buttonFacebook() {
-      return Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 38),
-        padding: const EdgeInsets.symmetric(horizontal: 17),
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: TextButton(
-          onPressed: () {},
-          child: Row(
-            children: [
-              Image.asset(
-                'assets/icons/icon_facebook.png',
-                width: 25,
-              ),
-              const SizedBox(
-                width: 28,
-              ),
-              Text(
-                'Masuk Dengan Google',
-                style: primaryTextStyle.copyWith(
-                    fontSize: 16, fontWeight: FontWeight.w600),
-              )
-            ],
           ),
         ),
       );
@@ -161,14 +168,6 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                const Divider(
-                  endIndent: 40,
-                  indent: 40,
-                  thickness: 1,
-                  color: Colors.black,
-                ),
-                buttonGoogle(),
-                buttonFacebook()
               ],
             ),
           ),

@@ -32,7 +32,7 @@ class pengaturanpage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/register');
+            Navigator.pushNamed(context, '/informasi-page');
           },
           child: Text(
             'Informasi Aplikasi',
@@ -52,7 +52,7 @@ class pengaturanpage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/register');
+            Navigator.pushNamed(context, '/notifikasi-movie');
           },
           child: Text(
             'Notifikasi',

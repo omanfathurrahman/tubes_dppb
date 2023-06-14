@@ -49,22 +49,29 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   child: Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 21,
-                          vertical: 18,
-                        ),
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset(
-                          'assets/icons/icon_movie.png',
-                          width: 40,
+                      InkWell(
+                        onTap: () {
+                          // Aksi yang akan dijalankan saat tombol ditekan
+                          Navigator.pushNamed(context, '/category-movie');
+                        },
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 18,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icons/icon_genre.png',
+                            width: 40,
+                          ),
                         ),
                       ),
                       const SizedBox(
-                        height: 12,
+                        height: 8,
                       ),
                       Text(
                         'Genre',
@@ -80,69 +87,78 @@ class HomePage extends StatelessWidget {
                 // NOte:Cuplikan
                 SizedBox(
                   child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    // Aksi yang akan dijalankan saat tombol ditekan
-                    Navigator.pushNamed(context, '/rekomen');
-                  },
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 21,
-                      vertical: 18,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Image.asset(
-                      'assets/icons/icon_genre.png',
-                      width: 40,
-                    ),
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // Aksi yang akan dijalankan saat tombol ditekan
+                          Navigator.pushNamed(context, '/cuplikan-movie');
+                        },
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 21,
+                            vertical: 18,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icons/icon_movie.png',
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Cuplikan Film',
+                        style: primaryTextStyle.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
-            ),
                 ),
                 const SizedBox(
                   width: 30,
                 ),
                 //Note: PEngaturan
-               SizedBox(
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    // Aksi yang akan dijalankan saat tombol ditekan
-                    Navigator.pushNamed(context, '/pengaturan');
-                  },
-                  borderRadius: BorderRadius.circular(8),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 21,
-                      vertical: 18,
-                    ),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Image.asset(
-                      'assets/icons/icon_pengaturan.png',
-                      width: 40,
-                    ),
+                SizedBox(
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // Aksi yang akan dijalankan saat tombol ditekan
+                          Navigator.pushNamed(context, '/pengaturan');
+                        },
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 21,
+                            vertical: 18,
+                          ),
+                          decoration: BoxDecoration(
+                            color: primaryColor,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.asset(
+                            'assets/icons/icon_pengaturan.png',
+                            width: 40,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        'Pengaturan',
+                        style: primaryTextStyle.copyWith(
+                            fontSize: 18, fontWeight: FontWeight.w700),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-              ],
-            ),
-),
-
               ],
             ),
             const SizedBox(

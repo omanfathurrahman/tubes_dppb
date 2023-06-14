@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MovieGrid extends StatefulWidget {
   const MovieGrid({super.key});
@@ -8,23 +10,37 @@ class MovieGrid extends StatefulWidget {
 }
 
 class _MovieGridState extends State<MovieGrid> {
-  final List<Map<String, dynamic>> gridMovie = [
-    {
-      'image': 'assets/img/cars_movie.jpeg',
-    },
-    {
-      'image': 'assets/img/demon_slayer.jpeg',
-    },
-    {
-      'image': 'assets/img/rumble_movie.jpeg',
-    },
-    {
-      'image': 'assets/img/tokyo_drift.jpeg',
-    },
-    {
-      'image': 'assets/img/transformer.jpeg',
+
+    @override
+  void initState() {
+    super.initState();
+    // Panggil fungsi untuk mengambil data dari API
+    fetchDataFromApi();
+  }
+
+  late List<Map<String, dynamic>> gridMovie = [];
+
+  Future<void> fetchDataFromApi() async {
+    final response = await http
+        .get(Uri.parse('https://omanfathurrahmannur.pythonanywhere.com/films'));
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      List<Map<String, dynamic>> tempList = [];
+      for (var data in jsonData) {
+        Map<String, dynamic> movie = {
+          'image': 'https://drive.google.com/uc?export=view&id=${data['link']}',
+        };
+        tempList.add(movie);
+      }
+      setState(() {
+        gridMovie = tempList;
+      });
+    } else {
+      throw Exception('Failed to fetch data from API');
     }
-  ];
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -46,7 +62,7 @@ class _MovieGridState extends State<MovieGrid> {
             margin: const EdgeInsets.symmetric(horizontal: 5),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
+              child: Image.network(
                 '${gridMovie.elementAt(index)['image']}',
                 width: double.infinity,
                 fit: BoxFit.cover,

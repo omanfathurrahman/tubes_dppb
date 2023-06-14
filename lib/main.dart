@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:moviees_app/home/bottom_nav.dart';
 import 'package:moviees_app/home/pengaturan.dart';
 import 'package:moviees_app/home/rekomen_page.dart';
+import 'package:moviees_app/pages/category.dart';
+import 'package:moviees_app/pages/cuplikan_movie_page.dart';
 import 'package:moviees_app/pages/detail_movie_page.dart';
+import 'package:moviees_app/pages/informasi_page.dart';
 import 'package:moviees_app/pages/lupaakun_page.dart';
+import 'package:moviees_app/pages/notifikasi_movie_page.dart';
 import 'package:moviees_app/pages/register_page.dart';
 import 'package:moviees_app/pages/selamat_page.dart';
 import './pages/login_page.dart';
@@ -21,15 +25,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const SplashPage(),
-        '/selamat': (context) => const SelamatPage(),
-        '/sign-in': (context) => const LoginPage(),
-        '/register': (context) => const RegisterPage(),
-        '/home': (context) => const MainPage(),
-        '/detail-movie': (context) => const DetailMovie(),
-        '/pengaturan':(context) => const pengaturanpage(),
-        '/lupaakun' : (context) => const LupaPage(),
-        '/rekomen': (context) => const RekomenPage(),
+        '/': (context) => SplashPage(),
+        '/selamat': (context) => SelamatPage(),
+        '/sign-in': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
+        '/home': (context) => MainPage(),
+        '/detail-movie': (context) => DetailMovie(),
+        // '/genre-movie': (context) => GenreMovie(),
+        '/cuplikan-movie': (context) => CuplikanMovie(),
+        '/category-movie': (context) => CategoryMovie(),
+        '/notifikasi-movie': (context) => NotifikasiMovie(),
+        '/pengaturan':(context) => pengaturanpage(),
+        '/lupaakun' : (context) => LupaPage(),
+        '/rekomen': (context) => RekomenPage(),
+        '/informasi-page': (context) => informasiPage(),
       },
     );
   }
